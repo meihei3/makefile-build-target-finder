@@ -1,0 +1,16 @@
+name: sandbox
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: this
+        uses: ./
+        with:
+          dependencies: 'test.txt'
