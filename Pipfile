@@ -13,3 +13,7 @@ flake8 = "*"
 [requires]
 python_version = "3.10"
 python_full_version = "3.10.9"
+
+[scripts]
+format = "yapf -r -i ./entrypoint.py"
+lint = "flake8 --show-source ./entrypoint.py"
