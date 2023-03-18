@@ -1,12 +1,19 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
+name: 'Makefile Build Target Finder'
+description: 'Find build targets in Makefile with the specified dependencies'
+author: 'meihei3'
+
 inputs:
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+  makefile:
+    description: 'The Makefile to find build targets from'
+    default: 'Makefile'
+    required: false
+  dependencies:
+    description: 'Files to find with dependencies (separated by spaces)'
+    required: true
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.makefile }}
+    - ${{ inputs.dependencies }}

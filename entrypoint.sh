@@ -1,3 +1,4 @@
 #!/bin/sh -l
 
-echo "hello $1"
+echo "Makefile $1"
+echo "dependencies $2"
