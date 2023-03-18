@@ -12,8 +12,11 @@ inputs:
     required: true
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.makefile }}
-    - ${{ inputs.dependencies }}
+  using: 'composite'
+  steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - shell: bash
+      run: |
+        python entrypoint.py ${{ inputs.makefile }} ${{ inputs.dependencies }}
