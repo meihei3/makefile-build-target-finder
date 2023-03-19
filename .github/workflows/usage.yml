@@ -19,4 +19,4 @@ jobs:
 
       - id: check
         shell: bash
-        run: echo ${{ steps.makefile-build-target-finder.outputs.targets }}
+        run: echo ${{ steps.makefile-build-target-finder.outputs.targets }} # -> "helloWorld hello.o"

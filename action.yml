@@ -27,3 +27,7 @@ runs:
       run: |
         RESULT=$(python entrypoint.py ${{ inputs.makefile }} ${{ inputs.dependencies }})
         echo "targets=${RESULT}" >> "$GITHUB_OUTPUT"
+
+branding:
+  icon: chevron-right
+  color: gray-dark
