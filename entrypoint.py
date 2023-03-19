@@ -34,12 +34,16 @@ def search(req: str, d: Dict[str, List[str]]) -> Set[str]:
     return r | x
 
 
+def search_targets_from_dependencies(parse_makefile_data: Dict[str, List[str]], dependencies: List[str]) -> Set[str]:
+    return set.union(*[search(dep, parse_makefile_data) for dep in dependencies])
+
+
 def main(makefile: str, dependencies: List[str]):
     if not validate_inputs(makefile, dependencies):
         sys.exit(1)
     with open(makefile, 'r') as f:
-        d = parse_makefile(f.read())
-    return ' '.join(set.union(*[search(i, d) for i in dependencies]))
+        parse_makefile_data = parse_makefile(f.read())
+    print(' '.join(search_targets_from_dependencies(parse_makefile_data, dependencies)))
 
 
 if __name__ == '__main__':
@@ -49,4 +53,4 @@ if __name__ == '__main__':
     argparser.add_argument('dependencies', nargs='+', type=str)
     args = argparser.parse_args()
 
-    print(main(args.makefile, args.dependencies))
+    main(args.makefile, args.dependencies)
