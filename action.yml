@@ -11,12 +11,19 @@ inputs:
     description: 'Files to find with dependencies (separated by spaces)'
     required: true
 
+outputs:
+  targets:
+    description: "Returns only files that are Added (A)."
+    value: ${{ steps.main.outputs.targets }}
+
 runs:
   using: 'composite'
   steps:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - shell: bash
+    - id: main
+      shell: bash
       run: |
-        python entrypoint.py ${{ inputs.makefile }} ${{ inputs.dependencies }}
+        RESULT=$(python entrypoint.py ${{ inputs.makefile }} ${{ inputs.dependencies }})
+        echo "targets=${RESULT}" >> "$GITHUB_OUTPUT"

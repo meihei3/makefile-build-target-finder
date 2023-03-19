@@ -10,8 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - id: this
-        uses: ./
         with:
-          makefile: 'tests/test.mk'
-          dependencies: 'test1.txt test2.txt'
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+
+      - id: this
+        uses: meihei3/makefile-build-target-finder@main
+        with:
+          makefile: 'tests/actions.mk'
+          dependencies: ${{ steps.changed-files.outputs.all_changed_files }}
+
+      - id: check
+        shell: bash
+        run: echo ${{ steps.this.outputs.targets }}
