@@ -13,8 +13,8 @@ inputs:
 
 outputs:
   targets:
-    description: "Returns only files that are Added (A)."
-    value: ${{ steps.main.outputs.targets }}
+    description: "Returns targets"
+    value: ${{ steps.makefile-build-target-finder.outputs.targets }}
 
 runs:
   using: 'composite'
@@ -22,7 +22,7 @@ runs:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - id: main
+    - id: makefile-build-target-finder
       shell: bash
       run: |
         RESULT=$(python entrypoint.py ${{ inputs.makefile }} ${{ inputs.dependencies }})

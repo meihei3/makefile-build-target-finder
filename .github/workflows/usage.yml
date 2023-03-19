@@ -1,0 +1,22 @@
+name: usage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: makefile-build-target-finder
+        uses: meihei3/makefile-build-target-finder@main
+        with:
+          makefile: 'tests/hello.mk'
+          dependencies: 'hello.c'
+
+      - id: check
+        shell: bash
+        run: echo ${{ steps.makefile-build-target-finder.outputs.targets }}
