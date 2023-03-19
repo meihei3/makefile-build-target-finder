@@ -11,7 +11,7 @@ REGEX_SPACES = re.compile(r'\s')
 def validate_inputs(makefile: str, dependencies: List[str]) -> bool:
     ok: bool = True
     if not os.path.exists(makefile):
-        print(f'Argument Error: {makefile} is not found')
+        print(f'Argument Error: {makefile} is not found', file=sys.stderr)
         ok &= False
     return ok
 
